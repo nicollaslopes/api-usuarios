@@ -1,5 +1,7 @@
 <?php
 
+    header('Content-type: application/json');
+
     require_once '../vendor/autoload.php';
 
     // qualquer requisição que chegar nessa página o htaccess irá colocar no parâmetro 'url'
@@ -19,9 +21,11 @@
 
             try{
                 $response = call_user_func_array(array(new $service, $method), $url);
+                http_response_code(200);
                 echo json_encode(['status' => 'success', 'data' => $response]);
                 exit;
             } catch(Exception $e){
+                http_response_code(404);
                 echo json_encode(['status' => 'error', 'data' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
                 exit;
                 

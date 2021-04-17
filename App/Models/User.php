@@ -23,4 +23,20 @@
 
         }
 
+        public function selectAll(){
+
+            $con = Connection::connect();
+            $query = "SELECT * FROM $this->table";
+            $resultQuery = $con->prepare($query);
+            $resultQuery->execute();
+
+            if($resultQuery->rowCount() > 0){
+                return $resultQuery->fetchAll(\PDO::FETCH_ASSOC);
+            } else {
+                throw new \Exception("Nenhum usuário encontrado");
+                
+            }
+
+        }
+
     }
