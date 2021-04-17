@@ -11,13 +11,13 @@
             $con = Connection::connect();
             $query = "SELECT * FROM $this->table WHERE id = :id";
             $resultQuery = $con->prepare($query);
-            $resultQuery->bindParam(':id', $id);
+            $resultQuery->bindParam(':id', $id, \PDO::PARAM_INT);
             $resultQuery->execute();
 
             if($resultQuery->rowCount() > 0){
-                return $resultQuery->fetch(PDO::FETCH_ASSOC);
+                return $resultQuery->fetch(\PDO::FETCH_ASSOC);
             } else {
-                throw new Exception("Nenhum usuário encontrado");
+                throw new \Exception("Nenhum usuário encontrado");
                 
             }
 
